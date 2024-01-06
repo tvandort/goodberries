@@ -1,23 +1,14 @@
-interface PlayerConsumption {
-  currentHp: number;
-  berriesConsumed: Berry[];
-}
+import { GoodberryConsumer, Berry, GoodberryRequest, byHeal } from "./types";
 
-interface Berry {
-  heals: number;
-}
-
-interface Player {
-  currentHp: number;
-  maxHp: number;
-}
-
-export const topoff = (player: Player, berries: Berry[]): PlayerConsumption => {
+export const topoffDistributor = (
+  player: GoodberryConsumer,
+  berries: Berry[],
+): GoodberryRequest => {
   let currentHp = player.currentHp;
   let berriesConsumed: Berry[] = [];
 
   // Sort berries in descending order based on heals
-  const sortedBerries = berries.sort((a, b) => b.heals - a.heals);
+  const sortedBerries = berries.sort(byHeal);
 
   // Iterate through the sorted berries
   for (let berryIndex = 0; berryIndex < sortedBerries.length; berryIndex++) {
@@ -35,9 +26,3 @@ export const topoff = (player: Player, berries: Berry[]): PlayerConsumption => {
     berriesConsumed,
   };
 };
-
-// Helper function to convert a number to a Berry object
-const toBerry = (value: number) => ({ heals: value });
-
-// Helper function to convert an array of numbers to an array of Berry objects
-export const asBerries = (values: number[]) => values.map(toBerry);
