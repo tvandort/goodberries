@@ -43,7 +43,12 @@ export class BerryBag {
   subtract(berries: Berry[]) {
     const berryCount = countBerries(berries);
     for (const heals in berryCount) {
-      this.berries[heals] -= berryCount[heals];
+      const count = berryCount[heals];
+      if (this.berries[heals] >= count) {
+        this.berries[heals] -= count;
+      } else {
+        throw new Error("Insufficient berries to subtract");
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-import { topoffDistributor } from "./topoff";
+import { topoff } from "./topoff";
 import { asBerries } from "./types";
 
 interface Case {
@@ -60,5 +60,5 @@ test.each<Case>([
     berriesConsumed: asBerries(data.consumedBerryValues),
   };
 
-  expect(topoffDistributor(player, berries)).toStrictEqual(expected);
+  expect(topoff(player, berries)).toStrictEqual(expected);
 });

@@ -1,26 +1,6 @@
-import { BerryBag, berryCountToArray } from "./berryBag";
-import { topoffDistributor } from "./topoff";
-import { Berry, GoodberryConsumer, Player, asBerries } from "./types";
-
-const distribute = (
-  players: (GoodberryConsumer & Player)[],
-  berries: Berry[],
-) => {
-  const berryBag = new BerryBag(berries);
-  const result = players.map((player) => {
-    const berries = berryBag.asArray();
-    const request = topoffDistributor(player, berries);
-    berryBag.subtract(request.berriesConsumed);
-    return {
-      ...player,
-      currentHp: request.currentHp,
-    };
-  });
-
-  const remainingBerries = berryBag.asCount();
-
-  return { players: result, remainingBerries };
-};
+import { berryCountToArray } from "./berryBag";
+import { topoffDistributor } from "./topoffDistributor";
+import { asBerries } from "./types";
 
 test("distributing 10 berries to 2 players", () => {
   const players = [
@@ -30,7 +10,7 @@ test("distributing 10 berries to 2 players", () => {
 
   const berries = asBerries([5, 5, 4, 3, 1]);
 
-  const result = distribute(players, berries);
+  const result = topoffDistributor(players, berries);
 
   expect(result.players).toEqual([
     { name: "A", currentHp: 10, maxHp: 10 },
@@ -56,7 +36,7 @@ test("distributing 10 berries to 2 players", () => {
     4: 40,
   });
 
-  const result = distribute(players, berries);
+  const result = topoffDistributor(players, berries);
 
   expect(result.players).toEqual([
     { name: "A", currentHp: 49, maxHp: 52 },

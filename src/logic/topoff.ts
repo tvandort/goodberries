@@ -1,6 +1,6 @@
 import { GoodberryConsumer, Berry, GoodberryRequest, byHeal } from "./types";
 
-export const topoffDistributor = (
+export const topoff = (
   player: GoodberryConsumer,
   berries: Berry[],
 ): GoodberryRequest => {

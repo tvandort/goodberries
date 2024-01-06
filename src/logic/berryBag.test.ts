@@ -37,13 +37,7 @@ test("countToArray should return the correct array of berries", () => {
 
   const result = countToArray(berryCount);
 
-  expect(result).toEqual([
-    { heals: 5 },
-    { heals: 5 },
-    { heals: 4 },
-    { heals: 3 },
-    { heals: 1 },
-  ]);
+  expect(result).toEqual(asBerries([5, 5, 4, 3, 1]));
 });
 
 test("subtract should remove the specified berries from the BerryBag", () => {
@@ -60,16 +54,14 @@ test("subtract should remove the specified berries from the BerryBag", () => {
   expect(berryBag.asArray()).toEqual(expectedRemainingBerries);
 });
 
-test("subtract should not remove any berries if the specified berries are not present in the BerryBag", () => {
+test("subtract should throw an error if the specified berries are not present in the BerryBag", () => {
   const initialBerries: Berry[] = asBerries([5, 5, 4, 3, 1]);
 
   const berriesToRemove: Berry[] = asBerries([2, 6]);
 
-  const expectedRemainingBerries: Berry[] = asBerries([5, 5, 4, 3, 1]);
-
   const berryBag = new BerryBag(initialBerries);
 
-  berryBag.subtract(berriesToRemove);
-
-  expect(berryBag.asArray()).toEqual(expectedRemainingBerries);
+  expect(() => {
+    berryBag.subtract(berriesToRemove);
+  }).toThrow("Insufficient berries to subtract");
 });
