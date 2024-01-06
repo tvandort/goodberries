@@ -18,6 +18,18 @@ export interface Player {
 
 export type BerryCount = Record<number, number>;
 
+export interface DistributorResult {
+  players: (GoodberryConsumer & Player)[];
+  remainingBerries: BerryCount;
+}
+
+export interface Distributor {
+  (
+    players: (GoodberryConsumer & Player)[],
+    berries: Berry[],
+  ): DistributorResult;
+}
+
 // Helper function to convert a number to a Berry object
 const toBerry = (value: number) => ({ heals: value });
 
