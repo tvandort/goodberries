@@ -28,6 +28,7 @@ export const berryCountToArray = (berryCount: BerryCount) => {
 
 export class BerryBag {
   private berries: BerryCount;
+
   constructor(berries: Berry[]) {
     this.berries = countBerries(berries);
   }

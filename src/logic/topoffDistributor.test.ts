@@ -31,7 +31,7 @@ test("distributing 10 berries to 2 players", () => {
   ];
 
   const berries = berryCountToArray({
-    6: 30,
+    6: 15,
     5: 50,
     4: 40,
   });
@@ -40,11 +40,11 @@ test("distributing 10 berries to 2 players", () => {
 
   expect(result.players).toEqual([
     { name: "A", currentHp: 49, maxHp: 52 },
-    { name: "B", currentHp: 85, maxHp: 88 },
+    { name: "B", currentHp: 88, maxHp: 88 },
   ]);
   expect(result.remainingBerries).toEqual({
     "4": 40,
-    "5": 50,
-    "6": 8,
+    "5": 41,
+    "6": 0,
   });
 });

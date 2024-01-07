@@ -7,15 +7,19 @@ export const topoff = (
   let currentHp = player.currentHp;
   let berriesConsumed: Berry[] = [];
 
-  // Sort berries in descending order based on heals
-  const sortedBerries = berries.sort(byHeal);
+  const berriesByHealingStrength = berries.sort(byHeal);
 
-  // Iterate through the sorted berries
-  for (let berryIndex = 0; berryIndex < sortedBerries.length; berryIndex++) {
-    let berry = sortedBerries[berryIndex];
+  for (
+    let berryIndex = 0;
+    berryIndex < berriesByHealingStrength.length;
+    berryIndex++
+  ) {
+    let berry = berriesByHealingStrength[berryIndex];
 
-    // Check if the berry can be consumed without exceeding maxHp
-    if (player.maxHp - currentHp >= berry.heals) {
+    const canBeConsumedWithoutExceedingMaxHp =
+      player.maxHp - currentHp >= berry.heals;
+
+    if (canBeConsumedWithoutExceedingMaxHp) {
       berriesConsumed.push(berry);
       currentHp += berry.heals;
     }
